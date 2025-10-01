@@ -19,11 +19,21 @@ const quizData = [
 let current = 0;
 let score = 0;
 
+const homeScreen = document.getElementById("home-screen");
+const quizScreen = document.getElementById("quiz-screen");
 const questionEl = document.getElementById("question");
 const optionsEl = document.getElementById("options");
 const scoreEl = document.getElementById("score");
 const scoreText = document.getElementById("score-text");
 const restartBtn = document.getElementById("restart");
+const startBtn = document.getElementById("start-quiz");
+
+// Show quiz screen after clicking start
+startBtn.onclick = () => {
+  homeScreen.classList.add("hidden");
+  quizScreen.classList.remove("hidden");
+  showQuestion();
+};
 
 function showQuestion() {
   if (current >= quizData.length) {
@@ -39,17 +49,20 @@ function showQuestion() {
   q.options.forEach((opt, i) => {
     const btn = document.createElement("button");
     btn.textContent = opt;
-    btn.onclick = () => { if(i===q.answer) score++; current++; showQuestion(); };
+    btn.onclick = () => { 
+      if(i === q.answer) score++;
+      current++;
+      showQuestion();
+    };
     optionsEl.appendChild(btn);
   });
 }
 
+// Restart quiz
 restartBtn.onclick = () => {
   current = 0;
   score = 0;
   scoreEl.classList.add("hidden");
   document.getElementById("quiz").classList.remove("hidden");
   showQuestion();
-}
-
-showQuestion();
+};
