@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rialo Quiz - Test Your Knowledge</title>
+    <title>Rialo Quiz</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,38 +11,32 @@
         <!-- Welcome Screen -->
         <div class="welcome-screen" id="welcomeScreen">
             <div class="welcome-card">
-                <div class="logo-section">
-                    <h1 class="logo-title">🚀 Rialo</h1>
-                    <div class="logo-subtitle">Quiz Challenge</div>
+                <h1 class="main-title">Rialo Quiz</h1>
+                
+                <div class="welcome-section">
+                    <h2 class="section-title">Welcome to Rialo Quiz</h2>
+                    <p class="description">Test your knowledge about Rialo blockchain and Subzero Labs</p>
                 </div>
                 
-                <div class="welcome-content">
-                    <h2>Welcome to Rialo Quiz</h2>
-                    <p>Test your knowledge about Rialo blockchain, Subzero Labs, and the future of Web3 technology.</p>
-                    
-                    <div class="quiz-info">
-                        <div class="info-item">
-                            <span class="info-icon">📝</span>
-                            <span>15 Questions</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-icon">⏱️</span>
-                            <span>~5 Minutes</span>
-                        </div>
-                        <div class="info-item">
-                            <span class="info-icon">🎯</span>
-                            <span>Multiple Choice</span>
-                        </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">15</div>
+                        <div class="stat-label">Questions</div>
                     </div>
-                    
-                    <button id="startQuizBtn" class="btn btn-start">
-                        Start Quiz
-                        <span class="btn-arrow">→</span>
-                    </button>
-                    
-                    <div class="footer-text">
-                        <p>Learn more at <a href="https://rialo.io" target="_blank">rialo.io</a></p>
+                    <div class="stat-item">
+                        <div class="stat-number">~5</div>
+                        <div class="stat-label">Minutes</div>
                     </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Available</div>
+                    </div>
+                </div>
+                
+                <button id="startQuizBtn" class="start-button">Start Quiz</button>
+                
+                <div class="footer-link">
+                    <p>Learn more at <a href="https://rialo.io" target="_blank">rialo.io</a></p>
                 </div>
             </div>
         </div>
@@ -50,54 +44,66 @@
         <!-- Quiz Container -->
         <div class="quiz-container" id="quizContainer" style="display: none;">
             <div class="quiz-header">
-                <button id="backBtn" class="back-btn">← Back</button>
-                <div class="progress-section">
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <div class="question-counter">
-                        <span id="questionNumber">1</span> / <span id="totalQuestions">15</span>
-                    </div>
+                <h1 class="main-title">Rialo Quiz</h1>
+                <button id="backBtn" class="back-button">← Back</button>
+            </div>
+
+            <div class="quiz-progress">
+                <div class="question-info">
+                    Question <span id="questionNumber">1</span> of <span id="totalQuestions">15</span>
+                </div>
+                <div class="timer" id="timer">0s</div>
+            </div>
+
+            <div class="question-section">
+                <h3 class="question-text" id="questionText">Loading question...</h3>
+                <div class="score-display">
+                    Score: <span id="currentScore">0</span> / <span id="maxScore">15</span>
                 </div>
             </div>
 
-            <div class="quiz-content" id="quizContent">
-                <div class="question-card">
-                    <h2 id="questionText">Loading question...</h2>
-                    <div class="options" id="optionsContainer">
-                        <!-- Options will be populated by JavaScript -->
-                    </div>
-                </div>
+            <div class="options-container" id="optionsContainer">
+                <!-- Options will be populated by JavaScript -->
             </div>
 
-            <div class="controls">
-                <button id="nextBtn" class="btn btn-primary" disabled>Next Question</button>
+            <div class="quiz-controls">
+                <button id="nextBtn" class="next-button" disabled>Next Question</button>
             </div>
         </div>
 
         <!-- Results Container -->
         <div class="results-container" id="resultsContainer" style="display: none;">
             <div class="results-card">
-                <div class="results-header">
-                    <h2>🎉 Quiz Complete!</h2>
+                <h1 class="main-title">Leaderboard</h1>
+                
+                <div class="user-result">
+                    <div class="username">@rialo-user</div>
+                    <div class="user-score">
+                        <span id="finalScore">0</span>/<span id="totalScore">15</span>
+                    </div>
                 </div>
                 
-                <div class="score-section">
-                    <div class="score-display">
-                        <span class="score" id="finalScore">0</span>
-                        <span class="total">/ 15</span>
+                <div class="results-section">
+                    <h3 class="section-title">Your Result</h3>
+                    
+                    <div class="result-item">
+                        <div class="result-username">@rialo-user</div>
+                        <div class="result-meta">
+                            <div class="result-score">
+                                <span id="resultScore">0</span>/15
+                            </div>
+                            <div class="result-time" id="resultTime">0:00</div>
+                        </div>
                     </div>
-                    <div class="score-percentage" id="scorePercentage">0%</div>
-                    <div class="score-message" id="scoreMessage"></div>
+                </div>
+                
+                <div class="final-message" id="scoreMessage">
+                    Great job on completing the quiz!
                 </div>
                 
                 <div class="results-actions">
-                    <button id="restartQuizBtn" class="btn btn-primary">Take Quiz Again</button>
-                    <button id="backToWelcomeBtn" class="btn btn-secondary">Back to Welcome</button>
-                </div>
-                
-                <div class="share-section">
-                    <p>Share your score and challenge your friends!</p>
+                    <button id="restartQuizBtn" class="start-button">Take Quiz Again</button>
+                    <button id="backToWelcomeBtn" class="secondary-button">Back to Welcome</button>
                 </div>
             </div>
         </div>
