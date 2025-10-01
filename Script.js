@@ -1,68 +1,217 @@
 const quizData = [
-  { question: "What does Rialo describe itself as?", options: ["A traditional Layer-1 blockchain","A real-world blockchain with native external connectivity","A DeFi lending protocol","A token swap DEX"], answer: 1 },
-  { question: "Which company is building Rialo?", options: ["ConsenSys","Subzero Labs","Ethereum Foundation","Binance Labs"], answer: 1 },
-  { question: "What is one of the key features of Rialo’s design?", options: ["No smart contract support","Native Web access for smart contracts (API calls)","Only supports ERC-20 tokens","Centralized custodial control"], answer: 1 },
-  { question: "Rialo claims to support what kind of transaction speed?", options: ["Minutes","Hours","Sub-second","Days"], answer: 2 },
-  { question: "Which of the following is a built-in capability of Rialo (as claimed)?", options: ["Oracles only","Bridges only","Scheduling, event-driven logic, privacy, identity","Only token minting"], answer: 2 },
-  { question: "What does the acronym “Rialo” jokingly stand for (in one slogan)?", options: ["Really Is A Layer One","Rialo Isn’t A Layer 1","Rialo Is Another L One","Rialo Is A Lean Option"], answer: 1 },
-  { question: "Who are the co-founders of Rialo?", options: ["Vitalik Buterin & Gavin Wood","Sam Bankman & Caroline Ellison","Ade Adepoju & Lu Zhang","Changpeng Zhao & He Yi"], answer: 2 },
-  { question: "How much funding has Rialo raised (in its early round) according to sources?", options: ["$1 million","$5 million","$20 million","$100 million"], answer: 2 },
-  { question: "Which investors are mentioned as backers of Rialo?", options: ["Sequoia, SoftBank","Pantera Capital, Coinbase Ventures, Hashed, Variant","Tiger Global, Coatue","BlackRock, Fidelity"], answer: 1 },
-  { question: "Rialo supports which virtual machine compatibility?", options: ["EVM only","Solana VM compatibility","Bitcoin VM","Cardano VM"], answer: 0 },
-  { question: "What is one use case highlighted in a developer’s testimonial about Rialo?", options: ["Building gaming graphics","Automating event-triggered smart contract flows without cron jobs","Creating simple token minting","Designing wallets only"], answer: 1 },
-  { question: "Which of the following is NOT claimed as a capability of Rialo?", options: ["Confidential computing / privacy","Identity via phone / email / social accounts","Built-in oracle marketplace only","Real-time execution and event scheduling"], answer: 2 },
-  { question: "What problem is Rialo trying to solve in the Web3 / blockchain space?", options: ["High token inflation","The disconnection from off-chain data and reactive logic","Lack of NFTs","Limited wallet choices"], answer: 1 },
-  { question: "When was Rialo founded (or first publicly introduced)?", options: ["2017","2020","2025","2030"], answer: 2 },
-  { question: "What is one feature that Rialo claims removes the need for (traditional) bridges?", options: ["Native data and asset flow across ecosystems","Manual token wrapping only","Custodial transfer service","Centralized exchange reliance"], answer: 0 }
+    {
+        question: "What is the full name of the company behind Rialo blockchain?",
+        options: ["Zero Labs", "Subzero Labs", "Meta Labs", "Rialo Labs"],
+        correct: 1
+    },
+    {
+        question: "How much funding did Subzero Labs raise in their initial seed round?",
+        options: ["$15 million", "$25 million", "$20 million", "$30 million"],
+        correct: 2
+    },
+    {
+        question: "Which investment firm led Subzero Labs' seed funding round?",
+        options: ["Coinbase Ventures", "Variant Fund", "Hashed", "Pantera Capital"],
+        correct: 3
+    },
+    {
+        question: "Who are the co-founders of Subzero Labs?",
+        options: ["Ade Adepoju and Sam Zhang", "Ade Adepoju and Lu Zhang", "Lu Zhang and George Danezis", "Ade Adepoju and Evan Cheng"],
+        correct: 1
+    },
+    {
+        question: "What does \"Rialo\" stand for according to the company?",
+        options: ["Real Internet Application Layer One", "Rialo isn't a layer 1", "Real-time Internet Application Logic Oracle", "Revolutionary Internet and Application Layer Operations"],
+        correct: 1
+    },
+    {
+        question: "Before founding Subzero Labs, both co-founders worked at which company?",
+        options: ["Meta", "Netflix", "Mysten Labs", "Google"],
+        correct: 2
+    },
+    {
+        question: "What blockchain project did the co-founders previously contribute to at Mysten Labs?",
+        options: ["Ethereum", "Solana", "Sui", "Avalanche"],
+        correct: 2
+    },
+    {
+        question: "What is one of Rialo's key technical features that eliminates the need for oracles?",
+        options: ["Native web connectivity with HTTPS calls", "Cross-chain bridges", "AI-powered predictions", "Quantum computing integration"],
+        correct: 0
+    },
+    {
+        question: "According to Rialo's Twitter posts, how fast can they deliver real-time price data?",
+        options: ["Under 500ms latency", "Under 200ms latency", "Under 100ms latency", "Under 50ms latency"],
+        correct: 2
+    },
+    {
+        question: "What architecture does Rialo combine for its execution environment?",
+        options: ["EVM and Solana VM", "RISC-V and Solana VM", "WASM and EVM", "x86 and ARM"],
+        correct: 1
+    },
+    {
+        question: "How many Discord members did Rialo gain in their first 13 days after launch?",
+        options: ["50,000 members", "75,000 members", "100,000 members", "150,000 members"],
+        correct: 2
+    },
+    {
+        question: "What major conference did Rialo attend in Singapore?",
+        options: ["Consensus 2025", "Token 2049", "DevCon", "Blockchain Week"],
+        correct: 1
+    },
+    {
+        question: "Lu Zhang (CTO) previously worked on which Meta project?",
+        options: ["Facebook Connect", "Meta AI", "Diem (formerly Libra)", "Instagram API"],
+        correct: 2
+    },
+    {
+        question: "What does Rialo claim to enable for smart contracts that traditional blockchains cannot?",
+        options: ["Faster transaction processing only", "Direct integration with real-world APIs and event-driven execution", "Lower gas fees only", "Better security only"],
+        correct: 1
+    },
+    {
+        question: "According to Rialo's philosophy, what device analogy do they use to describe their approach to blockchain?",
+        options: ["Like a personal computer integrating all components", "Like the iPhone integrating GPS, cameras, and internet into one device", "Like a game console combining entertainment features", "Like a smartwatch combining fitness and communication"],
+        correct: 1
+    }
 ];
 
-let current = 0;
+let currentQuestion = 0;
 let score = 0;
+let selectedAnswer = null;
 
-const homeScreen = document.getElementById("home-screen");
-const quizScreen = document.getElementById("quiz-screen");
-const questionEl = document.getElementById("question");
-const optionsEl = document.getElementById("options");
-const scoreEl = document.getElementById("score");
-const scoreText = document.getElementById("score-text");
-const restartBtn = document.getElementById("restart");
-const startBtn = document.getElementById("start-quiz");
+// DOM elements
+const questionText = document.getElementById('questionText');
+const optionsContainer = document.getElementById('optionsContainer');
+const nextBtn = document.getElementById('nextBtn');
+const questionNumber = document.getElementById('questionNumber');
+const totalQuestions = document.getElementById('totalQuestions');
+const progressFill = document.getElementById('progressFill');
+const resultsContainer = document.getElementById('resultsContainer');
+const quizContainer = document.querySelector('.quiz-container');
+const finalScore = document.getElementById('finalScore');
+const scorePercentage = document.getElementById('scorePercentage');
+const scoreMessage = document.getElementById('scoreMessage');
+const restartQuizBtn = document.getElementById('restartQuizBtn');
 
-// Show quiz screen after clicking start
-startBtn.onclick = () => {
-  homeScreen.classList.add("hidden");
-  quizScreen.classList.remove("hidden");
-  showQuestion();
-};
-
-function showQuestion() {
-  if (current >= quizData.length) {
-    document.getElementById("quiz").classList.add("hidden");
-    scoreEl.classList.remove("hidden");
-    scoreText.textContent = `You scored ${score} out of ${quizData.length}`;
-    return;
-  }
-
-  const q = quizData[current];
-  questionEl.textContent = q.question;
-  optionsEl.innerHTML = "";
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement("button");
-    btn.textContent = opt;
-    btn.onclick = () => { 
-      if(i === q.answer) score++;
-      current++;
-      showQuestion();
-    };
-    optionsEl.appendChild(btn);
-  });
+// Initialize quiz
+function initQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    selectedAnswer = null;
+    totalQuestions.textContent = quizData.length;
+    showQuestion();
+    updateProgressBar();
+    
+    // Show quiz container and hide results
+    quizContainer.style.display = 'block';
+    resultsContainer.style.display = 'none';
 }
 
-// Restart quiz
-restartBtn.onclick = () => {
-  current = 0;
-  score = 0;
-  scoreEl.classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
-  showQuestion();
-};
+// Display current question
+function showQuestion() {
+    const question = quizData[currentQuestion];
+    questionText.textContent = question.question;
+    questionNumber.textContent = currentQuestion + 1;
+    
+    // Clear previous options
+    optionsContainer.innerHTML = '';
+    
+    // Create option buttons
+    question.options.forEach((option, index) => {
+        const optionBtn = document.createElement('button');
+        optionBtn.className = 'option-btn';
+        optionBtn.textContent = `${String.fromCharCode(65 + index)}) ${option}`;
+        optionBtn.onclick = () => selectOption(index, optionBtn);
+        optionsContainer.appendChild(optionBtn);
+    });
+    
+    // Reset next button
+    nextBtn.disabled = true;
+    nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Finish Quiz' : 'Next Question';
+}
+
+// Handle option selection
+function selectOption(answerIndex, optionElement) {
+    // Remove previous selections
+    document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.classList.remove('selected', 'correct', 'incorrect');
+    });
+    
+    selectedAnswer = answerIndex;
+    optionElement.classList.add('selected');
+    nextBtn.disabled = false;
+}
+
+// Handle next question
+function nextQuestion() {
+    const question = quizData[currentQuestion];
+    
+    // Show correct/incorrect answers
+    document.querySelectorAll('.option-btn').forEach((btn, index) => {
+        if (index === question.correct) {
+            btn.classList.add('correct');
+        } else if (index === selectedAnswer && index !== question.correct) {
+            btn.classList.add('incorrect');
+        }
+    });
+    
+    // Update score
+    if (selectedAnswer === question.correct) {
+        score++;
+    }
+    
+    // Wait a moment to show the correct answer, then proceed
+    setTimeout(() => {
+        currentQuestion++;
+        
+        if (currentQuestion < quizData.length) {
+            showQuestion();
+            updateProgressBar();
+        } else {
+            showResults();
+        }
+    }, 1500);
+    
+    // Disable next button temporarily
+    nextBtn.disabled = true;
+}
+
+// Update progress bar
+function updateProgressBar() {
+    const progress = ((currentQuestion + 1) / quizData.length) * 100;
+    progressFill.style.width = `${progress}%`;
+}
+
+// Show final results
+function showResults() {
+    quizContainer.style.display = 'none';
+    resultsContainer.style.display = 'block';
+    
+    finalScore.textContent = score;
+    const percentage = Math.round((score / quizData.length) * 100);
+    scorePercentage.textContent = `${percentage}%`;
+    
+    // Set score message based on performance
+    let message = '';
+    if (percentage >= 90) {
+        message = '🏆 Outstanding! You\'re a Rialo expert!';
+    } else if (percentage >= 80) {
+        message = '🎯 Great job! You know Rialo very well!';
+    } else if (percentage >= 70) {
+        message = '👍 Good work! You have solid knowledge about Rialo.';
+    } else if (percentage >= 60) {
+        message = '📚 Not bad! Consider learning more about Rialo.';
+    } else {
+        message = '🔄 Keep learning! Visit rialo.io to discover more.';
+    }
+    
+    scoreMessage.textContent = message;
+}
+
+// Event listeners
+nextBtn.addEventListener('click', nextQuestion);
+restartQuizBtn.addEventListener('click', initQuiz);
+
+// Initialize quiz on page load
+document.addEventListener('DOMContentLoaded', initQuiz);
